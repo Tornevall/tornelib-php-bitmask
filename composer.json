@@ -1,5 +1,5 @@
 {
-  "name": "tornevall/tornelib-php-bits",
+  "name": "tornevall/tornelib-php-bitmask",
   "description": "Library that handles bitmasking issues",
   "minimum-stability": "stable",
   "license": "Apache-2.0",
