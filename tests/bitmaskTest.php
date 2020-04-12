@@ -15,12 +15,12 @@ class bitmaskTest extends TestCase
      */
     function bitStructure()
     {
-        $myBits = array(
+        $myBits = [
             'TEST1' => 1,
             'TEST2' => 2,
             'TEST4' => 4,
             'TEST8' => 8,
-        );
+        ];
         $myBit = new Bit($myBits);
         $this->assertCount(9, $myBit->getBitStructure());
     }
@@ -31,12 +31,12 @@ class bitmaskTest extends TestCase
      */
     function bitActive()
     {
-        $myBits = array(
+        $myBits = [
             'TEST1' => 1,
             'TEST2' => 2,
             'TEST4' => 4,
             'TEST8' => 8,
-        );
+        ];
         $myBit = new Bit($myBits);
         $this->assertTrue($myBit->isBit(8, 12));
     }
@@ -47,12 +47,12 @@ class bitmaskTest extends TestCase
      */
     function bitNotActive()
     {
-        $myBits = array(
+        $myBits = [
             'TEST1' => 1,
             'TEST2' => 2,
             'TEST4' => 4,
             'TEST8' => 8,
-        );
+        ];
         $myBit = new Bit($myBits);
         $this->assertFalse($myBit->isBit(64, 12));
     }
@@ -63,14 +63,14 @@ class bitmaskTest extends TestCase
      */
     function multiBitActive()
     {
-        $myBits = array(
+        $myBits = [
             'TEST1' => 1,
             'TEST2' => 2,
             'TEST4' => 4,
             'TEST8' => 8,
-        );
+        ];
         $myBit = new Bit($myBits);
-        $this->assertTrue($myBit->isBit((array(8, 2)), 14));
+        $this->assertTrue($myBit->isBit(([8, 2]), 14));
     }
 
     /**
@@ -102,11 +102,11 @@ class bitmaskTest extends TestCase
      */
     function bitModes()
     {
-        $myBit = array(
+        $myBit = [
             'DEBIT' => 1,
             'CREDIT' => 2,
             'ANNUL' => 4,
-        );
+        ];
         $bitClass = new Bit($myBit);
         $bitArray = $bitClass->getBitArray(255);
         $this->assertTrue(
