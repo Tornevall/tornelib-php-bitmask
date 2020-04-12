@@ -19,16 +19,16 @@
  * Each class in this library has its own version numbering to keep track of where the changes are. However, there is a major version too.
  * @package TorneLIB
  * @version 6.1.0
+ * @since 6.0
  * @deprecated You should learn how to run this by yourself.
  */
 
 namespace TorneLIB\Module;
 
 /**
- * Class TorneLIB_NetBits Netbits Library for calculations with bitmasks
+ * Class Bit Bitmasking handler if you're unable to handle & and | by yourself.
  *
  * @package TorneLIB
- * @version 6.0.1
  */
 class Bit
 {
@@ -36,9 +36,13 @@ class Bit
     private $BIT_SETUP;
     private $maxBits = 8;
 
-    function __construct($bitStructure = array())
+    /**
+     * Bit constructor.
+     * @param array $bitStructure
+     */
+    function __construct($bitStructure = [])
     {
-        $this->BIT_SETUP = array(
+        $this->BIT_SETUP = [
             'OFF' => 0,
             'BIT_1' => 1,
             'BIT_2' => 2,
@@ -48,26 +52,45 @@ class Bit
             'BIT_32' => 32,
             'BIT_64' => 64,
             'BIT_128' => 128,
-        );
+        ];
         if (count($bitStructure)) {
             $this->BIT_SETUP = $this->validateBitStructure($bitStructure);
         }
     }
 
+    /**
+     * Set max bits to handle. 8 bits = 1 byte. So in short, 1 byte can store up to 8 values.
+     *
+     * @param int $maxBits
+     * @return Bit
+     * @since 6.0
+     */
     public function setMaxBits($maxBits = 8)
     {
         $this->maxBits = $maxBits;
         $this->validateBitStructure($maxBits);
+        return $this;
     }
 
+    /**
+     * Return number of bits.
+     *
+     * @return int
+     * @since 6.0
+     */
     public function getMaxBits()
     {
         return $this->maxBits;
     }
 
+    /**
+     * @param int $maxBits
+     * @return array
+     * @since 6.0
+     */
     private function getRequiredBits($maxBits = 8)
     {
-        $requireArray = array();
+        $requireArray = [];
         if ($this->maxBits != $maxBits) {
             $maxBits = $this->maxBits;
         }
@@ -78,12 +101,17 @@ class Bit
         return $requireArray;
     }
 
-    private function validateBitStructure($bitStructure = array())
+    /**
+     * @param array $bitStructure
+     * @return array
+     * @since 6.0
+     */
+    private function validateBitStructure($bitStructure = [])
     {
         if (is_numeric($bitStructure)) {
-            $newBitStructure = array(
+            $newBitStructure = [
                 'OFF' => 0,
-            );
+            ];
             for ($bitIndex = 0; $bitIndex <= $bitStructure; $bitIndex++) {
                 $powIndex = pow(2, $bitIndex);
                 $newBitStructure["BIT_" . $powIndex] = $powIndex;
@@ -92,9 +120,9 @@ class Bit
             $this->BIT_SETUP = $bitStructure;
         }
         $require = $this->getRequiredBits(count($bitStructure));
-        $validated = array();
-        $newValidatedBitStructure = array();
-        $valueKeys = array();
+        $validated = [];
+        $newValidatedBitStructure = [];
+        $valueKeys = [];
         foreach ($bitStructure as $key => $value) {
             if (in_array($value, $require)) {
                 $newValidatedBitStructure[$key] = $value;
@@ -123,11 +151,19 @@ class Bit
         return $newValidatedBitStructure;
     }
 
-    public function setBitStructure($bitStructure = array())
+    /**
+     * @param array $bitStructure
+     * @since 6.0
+     */
+    public function setBitStructure($bitStructure = [])
     {
         $this->validateBitStructure($bitStructure);
     }
 
+    /**
+     * @return array
+     * @since 6.0
+     */
     public function getBitStructure()
     {
         return $this->BIT_SETUP;
@@ -138,8 +174,8 @@ class Bit
      *
      * @param int $requestedExistingBit
      * @param int $requestedBitSum
-     *
      * @return bool
+     * @since 6.0
      */
     public function isBit($requestedExistingBit = 0, $requestedBitSum = 0)
     {
@@ -185,12 +221,12 @@ class Bit
      * Get active bits in an array
      *
      * @param int $bitValue
-     *
      * @return array
+     * @since 6.0
      */
     public function getBitArray($bitValue = 0)
     {
-        $returnBitList = array();
+        $returnBitList = [];
         foreach ($this->BIT_SETUP as $key => $value) {
             if ($this->isBit($value, $bitValue)) {
                 $returnBitList[] = $key;
