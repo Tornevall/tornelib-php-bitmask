@@ -4,8 +4,8 @@ namespace TorneLIB\Module;
 
 /**
  * Class Bit Bitmasking handler if you're unable to handle & and | by yourself.
- *
  * @package TorneLIB
+ * @version 6.1.0
  */
 class Bit
 {
@@ -175,21 +175,6 @@ class Bit
                 }
             }
         }
-
-        // Solution that works with bits up to 8
-        /*
-        $sum = 0;
-        preg_match_all("/\d/", sprintf("%08d", decbin( $requestedBitSum)), $bitArray);
-        for ($bitCount = count($bitArray[0]); $bitCount >= 0; $bitCount--) {
-            if (isset($bitArray[0][$bitCount])) {
-                if ( $requestedBitSum & pow(2, $bitCount)) {
-                    if ( $requestedExistingBit == pow(2, $bitCount)) {
-                        $return = true;
-                    }
-                }
-            }
-        }
-        */
 
         return $return;
     }
